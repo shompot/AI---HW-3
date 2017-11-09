@@ -54,7 +54,7 @@ public class PuzzleTree {
 
         currentNodes = findWBestNodes(children);
 
-       // printList(currentNodes);
+        // printList(currentNodes);
 
         while (!hasReachedGoal()) {
             generateTreeHelper(currentNodes);
@@ -100,7 +100,7 @@ public class PuzzleTree {
         nodeNum += k;
         leafNum += k;
         currentNodes = findWBestNodes(children);
-       // printList(currentNodes);
+        // printList(currentNodes);
     }
 
     public boolean hasReachedGoal (){
