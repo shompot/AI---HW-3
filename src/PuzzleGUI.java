@@ -89,57 +89,31 @@ public class PuzzleGUI extends JPanel{
     //{
     //    this.puzzleList = puzzleList;
     //}
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+
         // generating 2 trees with same initial state
         Puzzle puzzle = new Puzzle();
         puzzle.puzzleGenerator();
 
         System.out.println("NOW SOLVE THIS PUZZLE:\n" + puzzle.toString() + "\n");
 
-        PuzzleTree treeForWidth2 = new PuzzleTree(2);
-        PuzzleTree treeForWidth3 = new PuzzleTree(3);
+        PuzzleTreeAStar tree = new PuzzleTreeAStar();
 
-        treeForWidth2.getRoot().copy(puzzle);
-        treeForWidth3.getRoot().copy(puzzle);
+        tree.getRoot().copy(puzzle);
 
-        treeForWidth2.generateTree();
-        treeForWidth3.generateTree();
+        tree.generateTree();
 
-        // solving 2 trees and printing their solution path and number of moves
-        ArrayList<Puzzle> solution1 = treeForWidth2.solution();
-        int moveCount1 = solution1.size();
-        ArrayList<Puzzle> solution2 = treeForWidth3.solution();
-        int moveCount2 = solution2.size();
 
-        System.out.print ("\n\nHere is the solution if size " + moveCount1+ " using w = 2\n");
-
-        for (int i=0; i < moveCount1; i ++){
-            System.out.print (solution1.get(i).toString() + "\n");
-        }
-
-        System.out.print ("\n\nHere is the solution if size " + moveCount2+ " using w = 3\n");
-
-        for (int i=0; i < moveCount2; i ++){
-            System.out.print (solution2.get(i).toString() + "\n");
-        }
-
+        // solving a tree and printing its solution path and number of moves
+        ArrayList<Puzzle> solution = tree.solution();
         JFrame frame1;
-        frame1 = new JFrame( "8 Puzzle Game with w = 2");
+        frame1 = new JFrame("8 Puzzle Game with w = 2");
         PuzzleGUI game = new PuzzleGUI();
-        game.setwList( solution1);
+        game.setwList(solution);
         frame1.setContentPane(game.gamePanel);
-        frame1.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.pack();
-        frame1.setVisible( true);
-
-        JFrame frame2;
-        frame2 = new JFrame( "8 Puzzle Game with w = 3");
-        PuzzleGUI game2 = new PuzzleGUI();
-        game2.setwList( solution2);
-        frame2.setContentPane(game2.gamePanel);
-        frame2.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-        frame2.pack();
-        frame2.setVisible( true);
+        frame1.setVisible(true);
     }
+
 }

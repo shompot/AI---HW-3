@@ -11,6 +11,7 @@ public class Puzzle
     private int x;
     private int y;
     private int[][] puzzle;
+    private int height;
 
     private Puzzle parent;
     private Puzzle[] children;
@@ -32,12 +33,14 @@ public class Puzzle
 
         initializeChildren();
         this.parent = null;
+        this.height = 0;
     }
     Puzzle(int [][] array, int x, int y){
         this.puzzle = array;
         this.x = x;
         this.y = y;
         this.parent = null;
+        this.height = 0;
         initializeChildren();
     }
     Puzzle(int [][] array, int x, int y, Puzzle parent){
@@ -45,6 +48,7 @@ public class Puzzle
         this.x = x;
         this.y = y;
         this.parent = parent;
+        this.height = 0;
         initializeChildren();
     }
 
@@ -58,6 +62,7 @@ public class Puzzle
         this.puzzle[i][j] = t;
     }
     public void setParent (Puzzle parent){ this.parent = parent; }
+    public void setHeight ( int h) { this.height = h; }
 
     public void setChildren (Puzzle[] children) {this.children = children; }
     public void addChild (Puzzle child){
@@ -85,6 +90,7 @@ public class Puzzle
         return this.puzzle[i][j];
     }
     public Puzzle getParent () { return this.parent; }
+    public int getHeight (){ return height; }
 
     public Puzzle[] getChildren() { return this.children;}
     public Puzzle getChild (int i) {
@@ -209,11 +215,16 @@ public class Puzzle
         return rowDifference+columnDifference;
     }
 
+    public int getCostPath (){
+        return getHeight() + getHeuristic();
+    }
+
     public void generateNextMoves (){
 
         Puzzle up = new Puzzle();
         up.copy(this);
         up.setParent(this);
+        up.setHeight(this.getHeight()+1);
         if (up.goUp() && isLoopFree(up)){
             this.addChild(up);
 
@@ -223,6 +234,7 @@ public class Puzzle
         Puzzle down = new Puzzle();
         down.copy(this);
         down.setParent(this);
+        down.setHeight(this.getHeight()+1);
         if (down.goDown() && isLoopFree(down)){
             this.addChild(down);
             //System.out.println( "\nChild Down Created\n");
@@ -231,6 +243,7 @@ public class Puzzle
         Puzzle left = new Puzzle();
         left.copy(this);
         left.setParent(this);
+        left.setHeight(this.getHeight()+1);
         if (left.goLeft() && isLoopFree(left)){
             this.addChild(left);
             //System.out.println( "\nChild Left Created\n");
@@ -238,6 +251,7 @@ public class Puzzle
         Puzzle right = new Puzzle();
         right.copy(this);
         right.setParent(this);
+        right.setHeight(this.getHeight()+1);
         if (right.goRight() && isLoopFree(right)){
             this.addChild(right);
             //System.out.println( "\nChild Right Created\n");
@@ -261,6 +275,16 @@ public class Puzzle
                 }
         }
         return true;
+    }
+
+    public boolean isGoal (){
+        Puzzle p = new Puzzle();
+        p.makeGoal();
+
+        if (this.isEqual(p))
+            return true;
+        else
+            return false;
     }
 
     public boolean isLoopFree (Puzzle node){
@@ -357,7 +381,7 @@ public class Puzzle
 
     //for testing purposes
     //will provide listings of program
-   /* public static void main( String[] args)
+    public static void main( String[] args)
 
     {
         Puzzle goalPuzzle;
@@ -366,7 +390,7 @@ public class Puzzle
         goalPuzzle.makeGoal();
 
         System.out.println( "Goal state:\n" + goalPuzzle.toString());
-        Puzzle[] puzzleList = new Puzzle[10];
+        /*Puzzle[] puzzleList = new Puzzle[10];
         for( int i = 0; i < 10; i++)
         {
             if( i == 2)
@@ -381,11 +405,18 @@ public class Puzzle
             }
             //System.out.println( "Puzzle " + (i + 1) + ":\n" + puzzleList[i].toString());
         }
-        for( int i = 0; i < list.size(); i++)
-        {
-            System.out.println( i + ":\n" + list.get(i).toString());
+        for( int i = 0; i < list.size(); i++) {
+            System.out.println(i + ":\n" + list.get(i).toString());
+        }
+        */
+        Puzzle p = new Puzzle();
+        p.puzzleGenerator();
+        p.generateNextMoves();
+        System.out.println("Puzzle p:\n" + p.toString());
+        for( int i = 0; i < p.getChildNum(); i++) {
+            System.out.println("Child " + i + ":\n" + p.getChild(i).toString() + "\nheight: " + p.getChild(i).getHeight());
         }
 
     }
-    */
+
 }
