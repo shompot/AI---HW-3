@@ -102,7 +102,7 @@ public class PuzzleTreeAStar {
     public int getMoveCount (){
         if (goal == null)
             return 0;
-        return goal.getHeight();
+        return goal.getHeight()+1;
     }
 
     // -----------------PRINT-------------------
@@ -153,7 +153,7 @@ public class PuzzleTreeAStar {
 
         // solving a tree and printing its solution path and number of moves
         ArrayList<Puzzle> solution = tree.solution();
-        int moveCount = tree.getMoveCount() + 1;
+        int moveCount = tree.getMoveCount();
 
         System.out.print ("\n\nHere is the solution if size " + moveCount + "\n");
 

@@ -177,21 +177,5 @@ public class PuzzleTreeShort {
         }
         System.out.print( "================================\nDone listing selected ones\n");
     }
-    public void printTree (){
-
-    }
-
-    public void printTreeHelper ( Puzzle node){
-
-    }
-
-    // -----------------MAIN-------------------
-    /*
-    public static void main( String[] args)
-    {
-
-
-    }
-    */
 
 }

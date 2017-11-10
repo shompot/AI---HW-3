@@ -91,29 +91,28 @@ public class PuzzleGUI extends JPanel{
     //}
     public static void main(String[] args) {
 
+
         // generating 2 trees with same initial state
         Puzzle puzzle = new Puzzle();
         puzzle.puzzleGenerator();
-
         System.out.println("NOW SOLVE THIS PUZZLE:\n" + puzzle.toString() + "\n");
+        PuzzleTreeAStar treeAStar = new PuzzleTreeAStar();
+        treeAStar.getRoot().copy(puzzle);
+        treeAStar.generateTree();
+        PuzzleTreeShort treeShort = new PuzzleTreeShort(5);
 
-        PuzzleTreeAStar tree = new PuzzleTreeAStar();
-
-        tree.getRoot().copy(puzzle);
-
-        tree.generateTree();
 
 
         // solving a tree and printing its solution path and number of moves
-        ArrayList<Puzzle> solution = tree.solution();
-        JFrame frame1;
-        frame1 = new JFrame("8 Puzzle Game with w = 2");
+        ArrayList<Puzzle> solution = treeAStar.solution();
+        JFrame frame;
+        frame = new JFrame("8 Puzzle Game with A*");
         PuzzleGUI game = new PuzzleGUI();
         game.setwList(solution);
-        frame1.setContentPane(game.gamePanel);
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame1.pack();
-        frame1.setVisible(true);
+        frame.setContentPane(game.gamePanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 
 }
