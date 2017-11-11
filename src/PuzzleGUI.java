@@ -8,6 +8,9 @@ import java.util.ArrayList;
  */
 public class PuzzleGUI extends JPanel{
     public ArrayList<Puzzle> wList = new ArrayList<Puzzle>();
+    public ArrayList<Integer> costPaths = new ArrayList<Integer>();
+    public ArrayList<Integer> heuristics = new ArrayList<Integer>();
+    public ArrayList<Integer> heights = new ArrayList<Integer>();
     public int curr = 0;
     private JButton a1Button;
     private JButton a2Button;
@@ -35,7 +38,8 @@ public class PuzzleGUI extends JPanel{
     }
     public void updateMatrix()
     {
-        if(curr != getwList().size()) {
+
+        if(curr < getwList().size()) {
             ArrayList<Integer> temp = new ArrayList<Integer>();
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
@@ -57,6 +61,9 @@ public class PuzzleGUI extends JPanel{
     {
         this.wList = wList;
     }
+    public void setCostPaths (ArrayList<Integer> costPaths) { this.costPaths = costPaths; }
+    public void setHeuristics (ArrayList<Integer> heuristics) { this.heuristics = heuristics; }
+    public void setHeights (ArrayList<Integer> heights) { this.heights = heights; }
     public ArrayList<Puzzle> getwList()
     {
         return this.wList;
@@ -101,7 +108,60 @@ public class PuzzleGUI extends JPanel{
         treeAStar.generateTree();
         PuzzleTreeShort treeShort = new PuzzleTreeShort(5);
 
+        // Now run the program for 100 puzzles
 
+        System.out.println("\n==================================================\n\n");
+        System.out.println("NOW SOLVE FOR 100 DISTINCT PUZZLES:\n\n");
+
+        for (int i = 0; i < 100; i ++ ){
+
+            // initialize trees
+            Puzzle tempPuzzle = new Puzzle();
+            tempPuzzle.puzzleGenerator();
+
+            PuzzleTreeShort tempTreeShort = new PuzzleTreeShort(3);
+            PuzzleTreeAStar tempTreeAStar = new PuzzleTreeAStar();
+
+            tempTreeShort.getRoot().copy(tempPuzzle);
+            tempTreeAStar.getRoot().copy(tempPuzzle);
+
+
+            // get current time in milliseconds
+            long time1 = System.currentTimeMillis() % 1000;
+
+            // solve puzzle with Shortest Path Algorithm
+            tempTreeShort.generateTree();
+
+            // calculate time taken to solve the puzzle by Shortest Path algorithm
+            time1 = System.currentTimeMillis() % 1000 - time1;
+
+            // get move count
+            int moveCount1 = tempTreeShort.solution().size();
+
+
+            // get current time in milliseconds
+            long time2 = System.currentTimeMillis() % 1000;
+
+            // solve puzzle with A-Star Algorithm
+            tempTreeAStar.generateTree();
+
+            // calculate time taken to solvse puzzle by A-Start algorithm
+            time1 = System.currentTimeMillis() % 1000 - time1;
+
+            // get move count
+            int moveCount2 = tempTreeAStar.solution().size();
+
+            // print result
+
+            System.out.println("Solved the following puzzle number " + (i+1) + ":\n\n" + tempPuzzle.toString());
+            System.out.println("\t\t\t\tSHORTEST PATH:\t\tA-STAR:\n");
+            System.out.println("Time (millisec)\t\t" + time1 + "\t\t\t\t"+ time2 + "\n");
+            System.out.println("Moves\t\t\t\t" + moveCount1 + "\t\t\t\t"+ moveCount2 + "\n");
+            System.out.println("\n==================================================\n\n");
+
+            tempTreeAStar.generateTree();
+
+        }
 
         // solving a tree and printing its solution path and number of moves
         ArrayList<Puzzle> solution = treeAStar.solution();
@@ -109,6 +169,9 @@ public class PuzzleGUI extends JPanel{
         frame = new JFrame("8 Puzzle Game with A*");
         PuzzleGUI game = new PuzzleGUI();
         game.setwList(solution);
+        game.setCostPaths(treeAStar.getCostPaths());
+        game.setHeuristics(treeAStar.getHeuristics());
+        game.setHeights(treeAStar.getHeights());
         frame.setContentPane(game.gamePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
