@@ -23,6 +23,7 @@ public class PuzzleGUI extends JPanel{
     private JButton a9Button;
     private JButton nextButton;
     public JPanel gamePanel;
+    private JLabel costPathLabel;
 
     public PuzzleGUI() {
         nextButton.addActionListener(new ActionListener()
@@ -53,6 +54,8 @@ public class PuzzleGUI extends JPanel{
                     getButtons().get(i).setText(" ");
                 }
             }
+            costPathLabel.setText(  "f(n) = g(n) + h(n) \n"
+                    + costPaths.get(curr) + " = " + heuristics.get(curr) + " + " + heights.get(curr));
 
         }
 
@@ -177,5 +180,4 @@ public class PuzzleGUI extends JPanel{
         frame.pack();
         frame.setVisible(true);
     }
-
 }
