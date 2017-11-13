@@ -22,6 +22,7 @@ public class PuzzleTreeAStar {
 
     PuzzleTreeAStar (Puzzle root){
         this.root = root;
+        leafs.add(root);
     }
 
     // -----------------SETTERS-------------------
@@ -32,7 +33,6 @@ public class PuzzleTreeAStar {
 
     // ---------CALCULATING METHODS---------------
     public void generateTree (){
-
         generateTreeHelper(root);
     }
 
@@ -63,7 +63,8 @@ public class PuzzleTreeAStar {
     }
 
     public void generateTreeHelper (Puzzle node){
-        leafs.remove(node);
+        if (leafs.contains(node))
+            leafs.remove(node);
 
         node.generateNextMoves();
 
