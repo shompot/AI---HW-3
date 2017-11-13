@@ -33,10 +33,13 @@
         <entry file="file://$PROJECT_DIR$/src/PuzzleTreeAStar.java">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state relative-caret-position="129">
               <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding />
 =======
+=======
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
             <state relative-caret-position="1700">
               <caret line="105" column="5" lean-forward="false" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
               <folding>
@@ -52,9 +55,12 @@
         <entry file="file://$PROJECT_DIR$/src/PuzzleTreeShort.java">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state relative-caret-position="124">
               <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
 =======
+=======
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
             <state relative-caret-position="17">
               <caret line="140" column="18" lean-forward="false" selection-start-line="140" selection-start-column="18" selection-end-line="140" selection-end-column="18" />
               <folding>
@@ -91,6 +97,9 @@
             <state relative-caret-position="-45">
               <caret line="244" column="37" lean-forward="false" selection-start-line="244" selection-start-column="37" selection-end-line="244" selection-end-column="37" />
               <folding />
+<<<<<<< HEAD
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
+=======
 >>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
             </state>
           </provider>
@@ -114,6 +123,9 @@
         <option value="$PROJECT_DIR$/src/Puzzle.java" />
         <option value="$PROJECT_DIR$/src/PuzzleTree.java" />
         <option value="$PROJECT_DIR$/src/PuzzleTreeAStar.java" />
+<<<<<<< HEAD
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
+=======
 >>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
         <option value="$PROJECT_DIR$/src/PuzzleTreeShort.java" />
         <option value="$PROJECT_DIR$/src/PuzzleGUI.java" />
@@ -145,6 +157,7 @@
       <pane id="Scratches" />
       <pane id="AndroidView" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -169,6 +182,8 @@
       </pane>
       <pane id="PackagesPane" />
       <pane id="Scope" />
+=======
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
 =======
 >>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
     </panes>
@@ -325,7 +340,11 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <editor active="true" />
+=======
+    <editor active="false" />
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
 =======
     <editor active="false" />
 >>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
@@ -339,8 +358,14 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38801262" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21875" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
 =======
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21875" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -625,6 +650,9 @@
           <folding>
             <element signature="e#503#504#0" expanded="false" />
             <element signature="e#535#536#0" expanded="false" />
+<<<<<<< HEAD
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
+=======
 >>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
           </folding>
         </state>
@@ -647,8 +675,11 @@
       </provider>
     </entry>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/jre/lib/rt.jar!/sun/nio/cs/StreamEncoder.class">
 =======
+=======
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/ArrayList.java" />
     <entry file="file://$PROJECT_DIR$/src/Puzzle.java">
 >>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
@@ -660,12 +691,15 @@
       </provider>
     </entry>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/io/PrintStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="525" column="0" lean-forward="false" selection-start-line="525" selection-start-column="0" selection-end-line="525" selection-end-column="0" />
           <folding />
 =======
+=======
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
     <entry file="file://$PROJECT_DIR$/src/PuzzleTreeAStar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1700">
@@ -702,6 +736,7 @@
       </provider>
     </entry>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="33">
@@ -729,11 +764,16 @@
             <element signature="e#2459#2460#0" expanded="true" />
           </folding>
 =======
+=======
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
     <entry file="file://$PROJECT_DIR$/../BeamEightPuzzle/src/PuzzleTree.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-45">
           <caret line="244" column="37" lean-forward="false" selection-start-line="244" selection-start-column="37" selection-end-line="244" selection-end-column="37" />
           <folding />
+<<<<<<< HEAD
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
+=======
 >>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
         </state>
       </provider>
@@ -741,9 +781,12 @@
     <entry file="file://$PROJECT_DIR$/src/PuzzleTreeAStar.java">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <state relative-caret-position="129">
           <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
 =======
+=======
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
         <state relative-caret-position="61">
           <caret line="95" column="37" lean-forward="true" selection-start-line="95" selection-start-column="37" selection-end-line="95" selection-end-column="37" />
 >>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
