@@ -8,9 +8,6 @@ import java.util.ArrayList;
  */
 public class PuzzleGUI extends JPanel{
     public ArrayList<Puzzle> wList = new ArrayList<Puzzle>();
-    public ArrayList<Integer> costPaths = new ArrayList<Integer>();
-    public ArrayList<Integer> heuristics = new ArrayList<Integer>();
-    public ArrayList<Integer> heights = new ArrayList<Integer>();
     public int curr = 0;
     private JButton a1Button;
     private JButton a2Button;
@@ -39,8 +36,7 @@ public class PuzzleGUI extends JPanel{
     }
     public void updateMatrix()
     {
-
-        if(curr < getwList().size()) {
+        if(curr != getwList().size()) {
             ArrayList<Integer> temp = new ArrayList<Integer>();
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
@@ -64,9 +60,6 @@ public class PuzzleGUI extends JPanel{
     {
         this.wList = wList;
     }
-    public void setCostPaths (ArrayList<Integer> costPaths) { this.costPaths = costPaths; }
-    public void setHeuristics (ArrayList<Integer> heuristics) { this.heuristics = heuristics; }
-    public void setHeights (ArrayList<Integer> heights) { this.heights = heights; }
     public ArrayList<Puzzle> getwList()
     {
         return this.wList;
@@ -111,6 +104,7 @@ public class PuzzleGUI extends JPanel{
         treeAStar.generateTree();
         PuzzleTreeShort treeShort = new PuzzleTreeShort(5);
 
+<<<<<<< HEAD
         // Now run the program for 100 puzzles
 
         System.out.println("\n==================================================\n\n");
@@ -163,6 +157,9 @@ public class PuzzleGUI extends JPanel{
             tempTreeAStar.generateTree();
 
         }
+=======
+
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
 
         // solving a tree and printing its solution path and number of moves
         ArrayList<Puzzle> solution = treeAStar.solution();
@@ -170,9 +167,6 @@ public class PuzzleGUI extends JPanel{
         frame = new JFrame("8 Puzzle Game with A*");
         PuzzleGUI game = new PuzzleGUI();
         game.setwList(solution);
-        game.setCostPaths(treeAStar.getCostPaths());
-        game.setHeuristics(treeAStar.getHeuristics());
-        game.setHeights(treeAStar.getHeights());
         frame.setContentPane(game.gamePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

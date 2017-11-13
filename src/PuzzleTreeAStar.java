@@ -9,7 +9,6 @@ public class PuzzleTreeAStar {
     private Puzzle goal;
 
     private ArrayList <Puzzle> leafs;
-    private ArrayList<Puzzle> result;
 
     // --------------CONSTRUCTORS---------------
     PuzzleTreeAStar (){
@@ -79,7 +78,7 @@ public class PuzzleTreeAStar {
     }
 
     public ArrayList<Puzzle> solution (){
-        result = new ArrayList<Puzzle>();
+        ArrayList<Puzzle> result = new ArrayList<Puzzle>();
 
         result.add(goal);
 
@@ -97,42 +96,6 @@ public class PuzzleTreeAStar {
         if (goal == null)
             return 0;
         return goal.getHeight()+1;
-    }
-
-    public ArrayList<Integer> getCostPaths (){
-        ArrayList<Integer> costPaths = new ArrayList<Integer> ();
-        if (result == null)
-            return null;
-        for (int i = 0; i < result.size(); i++){
-            costPaths.add(result.get(i).getCostPath());
-        }
-        return costPaths;
-    }
-
-    public ArrayList<Integer> getHeuristics (){
-        ArrayList<Integer> heuristics = new ArrayList<Integer> ();
-        if (result == null)
-            return null;
-        for (int i = 0; i < result.size(); i++){
-            heuristics.add(result.get(i).getHeuristic());
-        }
-        return heuristics;
-    }
-
-    public ArrayList<Integer> getHeights (){
-        ArrayList<Integer> heights = new ArrayList<Integer> ();
-        if (result == null)
-            return null;
-        for (int i = 0; i < result.size(); i++){
-            heights.add(result.get(i).getHeight());
-        }
-        return heights;
-    }
-
-    public boolean isSolved (){
-        if (goal == null)
-            return false;
-        return true;
     }
 
     // -----------------PRINT-------------------
