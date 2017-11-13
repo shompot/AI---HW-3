@@ -16,75 +16,67 @@ public class PuzzleTreeAStar {
         this.root = new Puzzle();
         this.root.puzzleGenerator();
         this.root.setParent(null);
-        leafs = new ArrayList<Puzzle>();
-        leafs.add(root);
+        this.leafs = new ArrayList<Puzzle>();
     }
 
     PuzzleTreeAStar (Puzzle root){
         this.root = root;
-        leafs.add(root);
+        this.root.setParent(null);
+        this.leafs = new ArrayList<Puzzle>();
+
     }
 
     // -----------------SETTERS-------------------
-    public void setRoot (Puzzle node){ this.root = node; }
+    //public void setRoot (Puzzle node){ this.root = node; }
 
     // -----------------GETTERS-------------------
     public Puzzle getRoot () { return this.root; }
 
     // ---------CALCULATING METHODS---------------
     public void generateTree (){
-        generateTreeHelper(root);
+        System.out.print("\n+++++++++++++++++++++++++++++++++++++++++++++++++\nNew puzzle solve\n\n");
+        leafs.add(this.root);
+        generateTreeHelper();
     }
 
-    public void addLeaf (Puzzle p){
-        if (leafs == null){
-            leafs = new ArrayList<Puzzle>();
-            leafs.add(p);
-            //System.out.print(leafs.get(0).getCostPath() + "\n\n\n");
+    public void generateTreeHelper (){
+
+        if (leafs == null)
             return;
-        }
 
-        boolean added = false;
+        Puzzle node = leafs.get(0);
 
-        for (int i = 0; i < leafs.size(); i++) {
-            //System.out.print(leafs.get(i).getCostPath()+ " ");
-            if (leafs.get(i).getCostPath() >= p.getCostPath()) {
-                leafs.add(i, p);
-                added = true;
-                return;
-            }
-
-        }
-        if (!added) {
-            leafs.add(p);
-            //System.out.print(p.getCostPath());
-        }
-        //System.out.print("\n\n\n");
-    }
-
-    public void generateTreeHelper (Puzzle node){
-        if (leafs.contains(node))
-            leafs.remove(node);
+        if (leafs.size()>0)
+            leafs.remove(leafs.get(0));
 
         node.generateNextMoves();
 
+        //printNode(node);
+
         for (int i=0; i < node.getChildNum(); i ++) {
             addLeaf (node.getChild(i));
-            if ( node.getChild(i).getHeuristic() == 0){
+            if ( node.getChild(i).isGoal()){
                 goal = node.getChild(i);
+                System.out.print("\n+++++++++++++++++++++++++++++++++++++++++++++++++\n");
                 return;
             }
         }
-
-        //printNode(node);
-        //printList(node.getChildren());
-
-        //System.out.println( "\n---------------------------------------------------------\n\n\n");
-
-        if (goal == null)
-            generateTreeHelper(leafs.get(0));
+        //System.out.print("\n-------------Queue is:" + leafs.toString() + "\n\n");
+        generateTreeHelper();
     }
 
+    public void addLeaf (Puzzle p){
+
+        if (leafs.isEmpty()){
+            leafs.add(0, p);
+            return;
+        }
+
+        int i = 0;
+        while ( (i < leafs.size()) && (leafs.get(i).getCostPath() < p.getCostPath()))
+            i++;
+        leafs.add(i, p);
+    }
 
     public ArrayList<Puzzle> solution (){
         result = new ArrayList<Puzzle>();
@@ -179,24 +171,63 @@ public class PuzzleTreeAStar {
         // generating 2 trees with same initial state
         Puzzle puzzle = new Puzzle();
         puzzle.puzzleGenerator();
-
         System.out.println("NOW SOLVE THIS PUZZLE:\n" + puzzle.toString() + "\n");
+        PuzzleTreeAStar treeAStar = new PuzzleTreeAStar();
+        treeAStar.getRoot().copy(puzzle);
+        treeAStar.generateTree();
+        PuzzleTreeShort treeShort = new PuzzleTreeShort(5);
 
-        PuzzleTreeAStar tree = new PuzzleTreeAStar();
+        // Now run the program for 100 puzzles
 
-        tree.getRoot().copy(puzzle);
+        System.out.println("\n==================================================\n\n");
+        System.out.println("NOW SOLVE FOR 100 DISTINCT PUZZLES:\n\n");
 
-        tree.generateTree();
+        for (int i = 0; i < 100; i ++ ){
+
+            // initialize trees
+            Puzzle tempPuzzle = new Puzzle();
+            tempPuzzle.puzzleGenerator();
+
+            PuzzleTreeShort tempTreeShort = new PuzzleTreeShort(tempPuzzle,3);
+            PuzzleTreeAStar tempTreeAStar = new PuzzleTreeAStar(tempPuzzle);
+
+            System.out.println("Solved the following puzzle number " + (i+1) + ":\n\n" + tempPuzzle.toString());
+
+            // get current time in milliseconds
+            long time1 = System.currentTimeMillis() % 1000;
+
+            // solve puzzle with Shortest Path Algorithm
+            tempTreeShort.generateTree();
+
+            // calculate time taken to solve the puzzle by Shortest Path algorithm
+            time1 = System.currentTimeMillis() % 1000 - time1;
+
+            // get move count
+            int moveCount1 = tempTreeShort.solution().size();
 
 
-        // solving a tree and printing its solution path and number of moves
-        ArrayList<Puzzle> solution = tree.solution();
-        int moveCount = tree.getMoveCount();
+            // get current time in milliseconds
+            long time2 = System.currentTimeMillis() % 1000;
 
-        System.out.print ("\n\nHere is the solution if size " + moveCount + "\n");
+            // solve puzzle with A-Star Algorithm
+            tempTreeAStar.generateTree();
 
-        for (int i=0; i < moveCount; i ++){
-            System.out.print (solution.get(i).toString() + "\n" + "\n");
+            // calculate time taken to solvse puzzle by A-Start algorithm
+            time1 = System.currentTimeMillis() % 1000 - time1;
+
+            // get move count
+            int moveCount2 = tempTreeAStar.solution().size();
+
+            // print result
+
+
+            System.out.println("\t\t\t\tSHORTEST PATH:\t\tA-STAR:\n");
+            System.out.println("Time (millisec)\t\t" + time1 + "\t\t\t\t"+ time2 + "\n");
+            System.out.println("Moves\t\t\t\t" + moveCount1 + "\t\t\t\t"+ moveCount2 + "\n");
+            System.out.println("\n==================================================\n\n");
+
+            tempTreeAStar.generateTree();
+
         }
 
     }

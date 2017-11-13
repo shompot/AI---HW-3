@@ -15,17 +15,19 @@ public class PuzzleTreeShort {
     PuzzleTreeShort ( int w){
         this.root = new Puzzle();
         this.root.puzzleGenerator();
-        this.root.setParent(null);
         this.w = w;
         this.currentNodes = new Puzzle[w];
-        nodeNum = 1;
-        leafNum = 1;
+        this.nodeNum = 1;
+        this.leafNum = 1;
     }
 
-    PuzzleTreeShort (Puzzle root){
+    PuzzleTreeShort (Puzzle root, int w){
         this.root = root;
-        nodeNum = 1 + root.getChildNum();
-        leafNum = root.getChildNum();
+        this.w = w;
+        this.root.setParent(null);
+        this.currentNodes = new Puzzle[w];
+        this.nodeNum = 1 + root.getChildNum();
+        this.leafNum = root.getChildNum();
     }
 
     // -----------------SETTERS-------------------

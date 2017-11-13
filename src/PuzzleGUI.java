@@ -54,8 +54,8 @@ public class PuzzleGUI extends JPanel{
                     getButtons().get(i).setText(" ");
                 }
             }
-            costPathLabel.setText(  "f(n) = g(n) + h(n) \n"
-                    + costPaths.get(curr) + " = " + heuristics.get(curr) + " + " + heights.get(curr));
+            //costPathLabel.setText(  "f(n) = g(n) + h(n) \n"
+            //        + costPaths.get(curr) + " = " + heuristics.get(curr) + " + " + heights.get(curr));
 
         }
 
@@ -122,12 +122,10 @@ public class PuzzleGUI extends JPanel{
             Puzzle tempPuzzle = new Puzzle();
             tempPuzzle.puzzleGenerator();
 
-            PuzzleTreeShort tempTreeShort = new PuzzleTreeShort(3);
-            PuzzleTreeAStar tempTreeAStar = new PuzzleTreeAStar();
+            PuzzleTreeShort tempTreeShort = new PuzzleTreeShort(tempPuzzle,3);
+            PuzzleTreeAStar tempTreeAStar = new PuzzleTreeAStar(tempPuzzle);
 
-            tempTreeShort.getRoot().copy(tempPuzzle);
-            tempTreeAStar.getRoot().copy(tempPuzzle);
-
+            System.out.println("Solved the following puzzle number " + (i+1) + ":\n\n" + tempPuzzle.toString());
 
             // get current time in milliseconds
             long time1 = System.currentTimeMillis() % 1000;
@@ -156,7 +154,7 @@ public class PuzzleGUI extends JPanel{
 
             // print result
 
-            System.out.println("Solved the following puzzle number " + (i+1) + ":\n\n" + tempPuzzle.toString());
+
             System.out.println("\t\t\t\tSHORTEST PATH:\t\tA-STAR:\n");
             System.out.println("Time (millisec)\t\t" + time1 + "\t\t\t\t"+ time2 + "\n");
             System.out.println("Moves\t\t\t\t" + moveCount1 + "\t\t\t\t"+ moveCount2 + "\n");

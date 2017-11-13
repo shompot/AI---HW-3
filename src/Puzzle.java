@@ -14,7 +14,7 @@ public class Puzzle
     private int height;
 
     private Puzzle parent;
-    private Puzzle[] children;
+    private ArrayList<Puzzle> children;
 
     // --------------CONSTRUCTORS---------------
     Puzzle()
@@ -31,25 +31,28 @@ public class Puzzle
         this.x = -1;
         this.y = -1;
 
-        initializeChildren();
+        children = new ArrayList<Puzzle>();
         this.parent = null;
         this.height = 0;
+
     }
     Puzzle(int [][] array, int x, int y){
         this.puzzle = array;
         this.x = x;
         this.y = y;
+        children = new ArrayList<Puzzle>();
         this.parent = null;
         this.height = 0;
-        initializeChildren();
+
     }
     Puzzle(int [][] array, int x, int y, Puzzle parent){
         this.puzzle = array;
         this.x = x;
         this.y = y;
+        children = new ArrayList<Puzzle>();
         this.parent = parent;
         this.height = 0;
-        initializeChildren();
+
     }
 
     // -----------------SETTERS-------------------
@@ -64,20 +67,12 @@ public class Puzzle
     public void setParent (Puzzle parent){ this.parent = parent; }
     public void setHeight ( int h) { this.height = h; }
 
-    public void setChildren (Puzzle[] children) {this.children = children; }
+    public void setChildren (ArrayList <Puzzle> children) {this.children = children; }
     public void addChild (Puzzle child){
-        if (getChildNum() < 4) {
-            int i = 0;
-            while (this.children[i] != null) i++;
+        if (children.size() < 4) {
 
-            this.children[i] = child;
-            this.children[i].setParent(this);
-        }
-    }
-    public void initializeChildren (){
-        this.children = new Puzzle[4];
-        for (int i = 0; i < 4; i ++){
-            this.children[i] = null;
+            this.children.add(children.size(), child);
+            this.children.get(children.size()-1).setParent(this);
         }
     }
     // -----------------GETTERS-------------------
@@ -90,22 +85,22 @@ public class Puzzle
         return this.puzzle[i][j];
     }
     public Puzzle getParent () { return this.parent; }
-    public int getHeight (){ return height; }
+    public int getHeight (){ return this.height; }
 
-    public Puzzle[] getChildren() { return this.children;}
+    public ArrayList<Puzzle> getChildren() { return this.children;}
+
     public Puzzle getChild (int i) {
-        if ( i < getChildNum() )
-            return this.children[i];
+        Puzzle p = null;
+        if ( i < this.children.size() )
+            p = this.children.get(i);
 
-        return null;
+        return p;
     }
+
     public int getChildNum (){
-        if (this.children==null)
-            return 0;
-        int i = 0;
-        while (i < 4 && this.children[i] != null) i++;
-        return i;
+        return this.children.size();
     }
+
     public int getX (){ return this.x; }
     public int getY (){ return this.y; }
 
@@ -216,7 +211,10 @@ public class Puzzle
     }
 
     public int getCostPath (){
-        return getHeight() + getHeuristic();
+        if (this == null)
+            return 1000;
+        int t = this.height + this.getHeuristic();
+        return t;
     }
 
     public void generateNextMoves (){
@@ -224,37 +222,44 @@ public class Puzzle
         Puzzle up = new Puzzle();
         up.copy(this);
         up.setParent(this);
-        up.setHeight(this.getHeight()+1);
+
         if (up.goUp() && isLoopFree(up)){
+
+            up.setHeight(this.getHeight()+1);
             this.addChild(up);
 
-            //System.out.println( "\nChild Up Created\n");
         }
 
         Puzzle down = new Puzzle();
         down.copy(this);
         down.setParent(this);
-        down.setHeight(this.getHeight()+1);
+
         if (down.goDown() && isLoopFree(down)){
+
+            down.setHeight(this.getHeight()+1);
             this.addChild(down);
-            //System.out.println( "\nChild Down Created\n");
+
         }
 
         Puzzle left = new Puzzle();
         left.copy(this);
         left.setParent(this);
-        left.setHeight(this.getHeight()+1);
+
         if (left.goLeft() && isLoopFree(left)){
+
+            left.setHeight(this.getHeight()+1);
             this.addChild(left);
-            //System.out.println( "\nChild Left Created\n");
+
         }
         Puzzle right = new Puzzle();
         right.copy(this);
         right.setParent(this);
-        right.setHeight(this.getHeight()+1);
+
         if (right.goRight() && isLoopFree(right)){
+
+            right.setHeight(this.getHeight()+1);
             this.addChild(right);
-            //System.out.println( "\nChild Right Created\n");
+
         }
     }
 
@@ -278,13 +283,9 @@ public class Puzzle
     }
 
     public boolean isGoal (){
-        Puzzle p = new Puzzle();
-        p.makeGoal();
-
-        if (this.isEqual(p))
+        if (getHeuristic() == 0)
             return true;
-        else
-            return false;
+        return false;
     }
 
     public boolean isLoopFree (Puzzle node){
