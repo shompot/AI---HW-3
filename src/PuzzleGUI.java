@@ -94,5 +94,30 @@ public class PuzzleGUI extends JPanel{
     //}
     public static void main(String[] args) {
 
+<<<<<<< HEAD
+=======
+
+        // generating 2 trees with same initial state
+        Puzzle puzzle = new Puzzle();
+        puzzle.puzzleGenerator();
+        System.out.println("NOW SOLVE THIS PUZZLE:\n" + puzzle.toString() + "\n");
+        PuzzleTreeAStar treeAStar = new PuzzleTreeAStar();
+        treeAStar.getRoot().copy(puzzle);
+        treeAStar.generateTree();
+        PuzzleTreeShort treeShort = new PuzzleTreeShort(5);
+
+
+
+        // solving a tree and printing its solution path and number of moves
+        ArrayList<Puzzle> solution = treeAStar.solution();
+        JFrame frame;
+        frame = new JFrame("8 Puzzle Game with A*");
+        PuzzleGUI game = new PuzzleGUI();
+        game.setwList(solution);
+        frame.setContentPane(game.gamePanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+>>>>>>> parent of 91e5e65... Merge branch 'developBranch' of https://github.com/shompot/AI---HW-3 into developBranch
     }
 }
