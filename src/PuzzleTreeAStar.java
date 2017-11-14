@@ -9,59 +9,54 @@ public class PuzzleTreeAStar {
     private Puzzle goal;
 
     private ArrayList <Puzzle> leafs;
+    private ArrayList<Puzzle> result;
 
     // --------------CONSTRUCTORS---------------
     PuzzleTreeAStar (){
         this.root = new Puzzle();
         this.root.puzzleGenerator();
         this.root.setParent(null);
-        this.leafs = new ArrayList<Puzzle>();
+        leafs = new ArrayList<Puzzle>();
     }
 
     PuzzleTreeAStar (Puzzle root){
         this.root = root;
-        this.root.setParent(null);
-        this.leafs = new ArrayList<Puzzle>();
-
+        leafs = new ArrayList<Puzzle>();
     }
 
     // -----------------SETTERS-------------------
-    //public void setRoot (Puzzle node){ this.root = node; }
+    public void setRoot (Puzzle node){ this.root = node; }
 
     // -----------------GETTERS-------------------
     public Puzzle getRoot () { return this.root; }
 
     // ---------CALCULATING METHODS---------------
     public void generateTree (){
-        System.out.print("\n+++++++++++++++++++++++++++++++++++++++++++++++++\nNew puzzle solve\n\n");
-        leafs.add(this.root);
-        generateTreeHelper();
+
+        leafs.add(root);
+
+        while (!this.isSolved()) {
+            generateTreeHelper();
+        }
     }
 
     public void generateTreeHelper (){
 
-        if (leafs == null)
+        if (leafs == null || leafs.isEmpty() || isSolved())
             return;
 
         Puzzle node = leafs.get(0);
-
-        if (leafs.size()>0)
-            leafs.remove(leafs.get(0));
+        leafs.remove(0);
 
         node.generateNextMoves();
 
-        //printNode(node);
-
         for (int i=0; i < node.getChildNum(); i ++) {
             addLeaf (node.getChild(i));
-            if ( node.getChild(i).isGoal()){
+            if ( node.getChild(i).getHeuristic() == 0){
                 goal = node.getChild(i);
-                System.out.print("\n+++++++++++++++++++++++++++++++++++++++++++++++++\n");
                 return;
             }
         }
-        //System.out.print("\n-------------Queue is:" + leafs.toString() + "\n\n");
-        generateTreeHelper();
     }
 
     public void addLeaf (Puzzle p){
@@ -77,8 +72,10 @@ public class PuzzleTreeAStar {
         leafs.add(i, p);
     }
 
+
+
     public ArrayList<Puzzle> solution (){
-        ArrayList<Puzzle> result = new ArrayList<Puzzle>();
+        result = new ArrayList<Puzzle>();
 
         result.add(goal);
 
@@ -96,6 +93,42 @@ public class PuzzleTreeAStar {
         if (goal == null)
             return 0;
         return goal.getHeight()+1;
+    }
+
+    public ArrayList<Integer> getCostPaths (){
+        ArrayList<Integer> costPaths = new ArrayList<Integer> ();
+        if (result == null)
+            return null;
+        for (int i = 0; i < result.size(); i++){
+            costPaths.add(result.get(i).getCostPath());
+        }
+        return costPaths;
+    }
+
+    public ArrayList<Integer> getHeuristics (){
+        ArrayList<Integer> heuristics = new ArrayList<Integer> ();
+        if (result == null)
+            return null;
+        for (int i = 0; i < result.size(); i++){
+            heuristics.add(result.get(i).getHeuristic());
+        }
+        return heuristics;
+    }
+
+    public ArrayList<Integer> getHeights (){
+        ArrayList<Integer> heights = new ArrayList<Integer> ();
+        if (result == null)
+            return null;
+        for (int i = 0; i < result.size(); i++){
+            heights.add(result.get(i).getHeight());
+        }
+        return heights;
+    }
+
+    public boolean isSolved (){
+        if (goal == null)
+            return false;
+        return true;
     }
 
     // -----------------PRINT-------------------
