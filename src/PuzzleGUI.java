@@ -101,6 +101,17 @@ public class PuzzleGUI extends JPanel{
     //}
     public static void main(String[] args) {
 
+        //generate 10 initial states
+        Puzzle goalPuzzle;
+        goalPuzzle = new Puzzle();
+        goalPuzzle.makeGoal();
+        Puzzle[] puzzleList = new Puzzle[10];
+        System.out.println("Goal state:\n" + goalPuzzle.toString());
+        for (int i = 0; i < 10; i++) {
+            puzzleList[i] = new Puzzle();
+            puzzleList[i].puzzleGenerator();
+            System.out.println("Puzzle " + (i + 1) + ":\n" + puzzleList[i].toString());
+        }
 
         // generating 2 trees with same initial state
         Puzzle puzzle = new Puzzle();
