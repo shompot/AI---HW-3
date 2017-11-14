@@ -66,10 +66,12 @@ public class Puzzle
 
     public void setChildren (Puzzle[] children) {this.children = children; }
     public void addChild (Puzzle child){
+        //System.out.println("Add Child");
         if (getChildNum() < 4) {
+            //System.out.print("Can add to ");
             int i = 0;
             while (this.children[i] != null) i++;
-
+            //System.out.println("i = " + i);
             this.children[i] = child;
             this.children[i].setParent(this);
         }
@@ -223,10 +225,13 @@ public class Puzzle
 
     public void generateNextMoves (){
 
+        //System.out.println( "\nChildren to be created \n");
+
         Puzzle up = new Puzzle();
         up.copy(this);
         up.setParent(this);
         up.setHeight(this.getHeight()+1);
+        //System.out.println("About to create UP");
         if (up.goUp() && isLoopFree(up)){
             this.addChild(up);
 
@@ -237,6 +242,7 @@ public class Puzzle
         down.copy(this);
         down.setParent(this);
         down.setHeight(this.getHeight()+1);
+        //System.out.println("About to create DOWN");
         if (down.goDown() && isLoopFree(down)){
             this.addChild(down);
             //System.out.println( "\nChild Down Created\n");
@@ -246,6 +252,7 @@ public class Puzzle
         left.copy(this);
         left.setParent(this);
         left.setHeight(this.getHeight()+1);
+        //System.out.println("About to create LEFT");
         if (left.goLeft() && isLoopFree(left)){
             this.addChild(left);
             //System.out.println( "\nChild Left Created\n");
@@ -254,16 +261,20 @@ public class Puzzle
         right.copy(this);
         right.setParent(this);
         right.setHeight(this.getHeight()+1);
+        //System.out.println("About to create RIGHT");
         if (right.goRight() && isLoopFree(right)){
             this.addChild(right);
             //System.out.println( "\nChild Right Created\n");
         }
+        //System.out.println( "\nDone creation on children \n");
     }
 
     public void copy (Puzzle p) {
         this.x = p.getX();
         this.y = p.getY();
-        this.puzzle = p.getPuzzleArr();
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                this.setTile(i,j, p.getTile(i,j));
     }
 
     public boolean isEqual (Puzzle p) {
@@ -305,6 +316,7 @@ public class Puzzle
     // -----------------MOVES-------------------
     public boolean goUp()
     {
+        //System.out.println("Inside UP");
         if( y == 0)
         {
             return false;
@@ -318,6 +330,7 @@ public class Puzzle
     }
     public boolean goDown()
     {
+        //System.out.println("Inside DOWN");
         if( y == 2)
         {
             return false;
@@ -331,6 +344,7 @@ public class Puzzle
     }
     public boolean goRight()
     {
+        //System.out.println("Inside RIGHT");
         if( x == 2)
         {
             return false;
@@ -344,6 +358,7 @@ public class Puzzle
     }
     public boolean goLeft()
     {
+        //System.out.println("Inside LEFT");
         if( x == 0)
         {
             return false;

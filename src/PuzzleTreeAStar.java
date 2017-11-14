@@ -33,46 +33,106 @@ public class PuzzleTreeAStar {
     // ---------CALCULATING METHODS---------------
     public void generateTree (){
 
-        leafs.add(root);
+        addLeaf(this.root);
 
-        while (!this.isSolved()) {
+        //System.out.println("\nGenerate tree for root " + this.root.toString());
+
+        while (this.goal==null) {
+
+        //for (int i=0; i<20000; i++){
+            //System.out.println("\nGenerate tree in loop " + i + " for  " + this.popQueue());
             generateTreeHelper();
         }
+        //System.out.println("\nEND");
     }
 
     public void generateTreeHelper (){
 
-        if (leafs == null || leafs.isEmpty() || isSolved())
-            return;
+        if (leafs == null) {
 
-        Puzzle node = leafs.get(0);
-        leafs.remove(0);
+            //System.out.println("\n----------Just return cuz leafs is null------------\n");
+            return;
+        }
+
+        if (leafs.size()==0) {
+
+            //System.out.println("\n----------Just return cuz leafs is empty------------\n");
+            return;
+        }
+
+        if ( isSolved()) {
+
+            //System.out.println("\n----------Just return cuz it is solved------------\n");
+            return;
+        }
+
+        //System.out.println ("\n---------I am inside the helper----------\n");
+
+        Puzzle node = popQueue();
+
+
+        //System.out.println("\nInside generate tree helper with node " +  node.toString());
 
         node.generateNextMoves();
 
+        //System.out.println ("Children generated are: ");
+
+        Puzzle[] children = new Puzzle[node.getChildNum()];
+        children = node.getChildren();
+
+        /*for (int i=0; i < node.getChildNum(); i ++){
+            System.out.println (children[i].toString() + "CostPath: " + children[i].getCostPath()+ "\tHeuristics: " + children[i].getHeuristic() + "\n");
+        }
+*/
+
         for (int i=0; i < node.getChildNum(); i ++) {
-            addLeaf (node.getChild(i));
-            if ( node.getChild(i).getHeuristic() == 0){
-                goal = node.getChild(i);
+            addLeaf (children[i]);
+            if ( children[i].getHeuristic() == 0){
+                goal = children[i];
                 return;
             }
         }
+
+        //System.out.println("\nLeafs after generate tree helper is " + leafsToString() + "\n");
+        leafs.remove(node);
     }
 
     public void addLeaf (Puzzle p){
 
+        if (leafs == null){
+            leafs = new ArrayList<Puzzle>();
+            //System.out.println ("Leafs is created");
+        }
+
         if (leafs.isEmpty()){
             leafs.add(0, p);
+            //System.out.println ("Add:\n" + p.toString() + " with cost path " + p.getCostPath() + " to i=" + 0 + "\n\nSo now leafs is:\n" + leafsToString() + "\n\n\n");
+
             return;
         }
 
         int i = 0;
-        while ( (i < leafs.size()) && (leafs.get(i).getCostPath() < p.getCostPath()))
+        int tCostPath = p.getCostPath();
+        while ( (i < leafs.size()) && (leafs.get(i).getCostPath() < tCostPath) ) {
+            //if (p.isEqual(leafs.get(i)) && p.getHeight()>= leafs.get(i).getHeight()) {
+            //    return;
+            //}
             i++;
+        }
         leafs.add(i, p);
+        //System.out.println ("Add:\n" + p.toString() + " with cost path " + p.getCostPath() + " to i=" + i + "\n\nSo now leafs is:\n" + leafsToString() + "\n\n\n");
+
     }
 
-
+    public Puzzle popQueue (){
+        //System.out.println ("Trying to popQueue from leafs: " + leafsToString());
+        if (leafs == null || leafs.isEmpty())
+            return null;
+        if (!leafs.contains(leafs.get(0)))
+            return null;
+        Puzzle p = leafs.get(0);
+        return p;
+    }
 
     public ArrayList<Puzzle> solution (){
         result = new ArrayList<Puzzle>();
@@ -87,6 +147,14 @@ public class PuzzleTreeAStar {
         }
 
         return result;
+    }
+
+    public String leafsToString (){
+        String s = "";
+
+        for (int i=0; i < leafs.size(); i++)
+            s += leafs.get(i).toString() + "CostPath: " + leafs.get(i).getCostPath() + "\tHeuristic: " + leafs.get(i).getHeuristic() + "\n\n";
+        return s;
     }
 
     public int getMoveCount (){
@@ -138,7 +206,7 @@ public class PuzzleTreeAStar {
         if (node == null)
             return;
         System.out.print(node.toString());
-        System.out.print( "CostPath: " + node.getCostPath() + "\n-------------------------\n");
+        System.out.print( "CostPath: " + node.getCostPath() + "\tHeuristic: " + node.getHeuristic() +"\n-------------------------\n");
 
     }
 
@@ -164,7 +232,7 @@ public class PuzzleTreeAStar {
 
     public static void main( String[] args)
     {
-        // generating 2 trees with same initial state
+       /* // generating 2 trees with same initial state
         Puzzle puzzle = new Puzzle();
         puzzle.puzzleGenerator();
         System.out.println("NOW SOLVE THIS PUZZLE:\n" + puzzle.toString() + "\n");
@@ -177,7 +245,7 @@ public class PuzzleTreeAStar {
 
         System.out.println("\n==================================================\n\n");
         System.out.println("NOW SOLVE FOR 100 DISTINCT PUZZLES:\n\n");
-
+*/
         for (int i = 0; i < 100; i ++ ){
 
             // initialize trees
@@ -226,6 +294,22 @@ public class PuzzleTreeAStar {
 
         }
 
+        //PuzzleTreeAStar tempTreeAStar = new PuzzleTreeAStar();
+        /*for (int i = 0; i < 10; i++){
+            Puzzle tempPuzzle = new Puzzle();
+            tempPuzzle.puzzleGenerator();
+
+            PuzzleTreeAStar tempTreeAStar = new PuzzleTreeAStar(tempPuzzle);
+
+            tempTreeAStar.generateTree();
+
+            ArrayList <Puzzle> solution = tempTreeAStar.solution();
+
+            for (int j = 0; j<solution.size(); j ++){
+                System.out.println(solution.get(j).toString());
+            }
+        }
+*/
     }
 
 }
